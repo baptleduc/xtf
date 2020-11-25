@@ -1,9 +1,6 @@
-# Files compiled and linked for different architectures and environments
-#
-# obj-perbits  get compiled once per bitness
-# obj-perenv   get get compiled once for each environment
-# obj-$(env)   are objects unique to a specific environment
+# Architecture specific files compiled and linked for x86
 
+# Per bitness
 obj-perbits += $(ROOT)/common/console.o
 obj-perbits += $(ROOT)/common/extable.o
 obj-perbits += $(ROOT)/common/grant_table.o
@@ -17,6 +14,7 @@ obj-perbits += $(ROOT)/common/setup.o
 obj-perbits += $(ROOT)/common/xenbus.o
 obj-perbits += $(ROOT)/common/weak-defaults.o
 
+# Per environment
 obj-perenv += $(ROOT)/arch/x86/decode.o
 obj-perenv += $(ROOT)/arch/x86/desc.o
 obj-perenv += $(ROOT)/arch/x86/extable.o

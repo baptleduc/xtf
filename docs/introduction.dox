@@ -45,7 +45,8 @@ A test is built for one or more environments.  The environment encodes:
 All available environments are:
 @skipline ALL_ENVIRONMENTS
 
-Some more specific collections for environments are also available:
+Some more specific collections of x86 environments are also available:
+@dontinclude build/x86/arch.mk
 @skipline PV_ENVIRONMENTS
 @until 64BIT_ENVIRONMENTS
 

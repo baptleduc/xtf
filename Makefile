@@ -25,7 +25,17 @@ endif
 
 xtftestdir := $(xtfdir)/tests
 
-export DESTDIR xtfdir xtftestdir
+# Target architecture: ARCH= (e.g. x86_64, riscv64), defaulting to the build
+# host's (uname -m).  As in Xen, SRCARCH names its arch/ and build/ directory.
+SUPPORTED_ARCH := x86
+ARCH ?= $(shell uname -m)
+SRCARCH := $(shell echo '$(ARCH)' | \
+    sed -e 's/x86.*/x86/')
+ifeq ($(filter $(SRCARCH),$(SUPPORTED_ARCH)),)
+$(error Architecture '$(ARCH)' not supported)
+endif
+
+export DESTDIR ARCH SRCARCH xtfdir xtftestdir
 
 ifeq ($(LLVM),) # GCC toolchain
 CC              := $(CROSS_COMPILE)gcc
