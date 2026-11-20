@@ -27,10 +27,10 @@ xtftestdir := $(xtfdir)/tests
 
 # Target architecture: ARCH= (e.g. x86_64, riscv64), defaulting to the build
 # host's (uname -m).  As in Xen, SRCARCH names its arch/ and build/ directory.
-SUPPORTED_ARCH := x86
+SUPPORTED_ARCH := x86 riscv
 ARCH ?= $(shell uname -m)
 SRCARCH := $(shell echo '$(ARCH)' | \
-    sed -e 's/x86.*/x86/')
+    sed -e 's/x86.*/x86/' -e 's/riscv.*/riscv/')
 ifeq ($(filter $(SRCARCH),$(SUPPORTED_ARCH)),)
 $(error Architecture '$(ARCH)' not supported)
 endif

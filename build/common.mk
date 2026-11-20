@@ -1,7 +1,7 @@
 # Architecture independent/common configuration
 ALL_CATEGORIES     := special functional xsa utility in-development
 
-ALL_ENVIRONMENTS   := pv64 pv32pae hvm64 hvm32pae hvm32pse hvm32
+ALL_ENVIRONMENTS   := pv64 pv32pae hvm64 hvm32pae hvm32pse hvm32 riscv64
 
 comma := ,
 
