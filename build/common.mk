@@ -82,7 +82,7 @@ DEPS-$(1) = \
 endef
 
 # Make a call to a function PERENV_setup once per each environment
-$(foreach env,$(ALL_ENVIRONMENTS),$(eval $(call PERENV_setup,$(env))))
+$(foreach env,$(ARCH_ENVS),$(eval $(call PERENV_setup,$(env))))
 
 define move-if-changed
 	if ! cmp -s $(1) $(2); then mv -f $(1) $(2); else rm -f $(1); fi

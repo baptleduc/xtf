@@ -2,6 +2,9 @@
 
 ARCH_PATH := $(ROOT)/arch/x86
 
+# Environments built for x86.
+ARCH_ENVS := pv64 pv32pae hvm64 hvm32pae hvm32pse hvm32
+
 PV_ENVIRONMENTS    := $(filter pv%,$(ALL_ENVIRONMENTS))
 HVM_ENVIRONMENTS   := $(filter hvm%,$(ALL_ENVIRONMENTS))
 32BIT_ENVIRONMENTS := $(filter pv32% hvm32%,$(ALL_ENVIRONMENTS))

@@ -53,6 +53,11 @@ Some more specific collections of x86 environments are also available:
 An individual test, compiled for more than one environment, will end up with a
 individual microkernel binary for each specified environment.
 
+A test is only built for its environments belonging to the target architecture
+(`ARCH=`, by default the build host's), listed in `ARCH_ENVS`.  A
+test with none of them builds nothing, which is how tests specific to one
+architecture are expressed.
+
 @subsection Variations
 
 Variations are optional.  Some tests may only want to run the binary once, but
@@ -73,7 +78,7 @@ some information, and writes out some default files:
     $ ./make-new-test.sh
     Test name: example
     Category [utility]: special
-    Environments [hvm32]: $(ALL_ENVIRONMENTS)
+    Environments [hvm32]: $(PV_ENVIRONMENTS) $(HVM_ENVIRONMENTS)
     Extra xl.cfg? [y/N]: n
     Writing default tests/example/Makefile
     Writing default tests/example/main.c

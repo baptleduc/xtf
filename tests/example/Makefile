@@ -2,7 +2,7 @@ include $(ROOT)/build/common.mk
 
 NAME      := example
 CATEGORY  := special
-TEST-ENVS := $(ALL_ENVIRONMENTS)
+TEST-ENVS := $(PV_ENVIRONMENTS) $(HVM_ENVIRONMENTS)
 
 obj-perenv += main.o
 

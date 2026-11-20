@@ -6,13 +6,12 @@ ifeq ($(NAME),)
 $(error NAME should be specified)
 endif
 
-ifeq ($(TEST-ENVS),)
-$(error TEST-ENVS should not be empty)
-endif
-
 ifneq ($(filter-out $(ALL_ENVIRONMENTS),$(TEST-ENVS)),)
 $(error Unrecognised environments '$(filter-out $(ALL_ENVIRONMENTS),$(TEST-ENVS))')
 endif
+
+# Only build the environments of $(SRCARCH).
+TEST-ENVS := $(filter $(ARCH_ENVS),$(TEST-ENVS))
 
 ifeq ($(CATEGORY),)
 $(error CATEGORY should not be empty)
@@ -32,17 +31,21 @@ else
 TEST-CFGS := $(foreach env,$(TEST-ENVS),test-$(env)-$(NAME).cfg)
 endif
 
-.PHONY: build
+.PHONY: build install install-each-env
 build: $(foreach env,$(TEST-ENVS),test-$(env)-$(NAME)) $(TEST-CFGS)
+install: install-each-env
+
+# A test with no environment left has nothing to build nor install.
+ifneq ($(TEST-ENVS),)
 build: info.json
 
 info.json: $(ROOT)/build/mkinfo.py Makefile
 	$(PYTHON) $< $@ "$(NAME)" "$(CATEGORY)" "$(TEST-ENVS)" "$(VARY-CFG)"
 
-.PHONY: install install-each-env
-install: install-each-env info.json
+install: info.json
 	@$(INSTALL_DIR) $(DESTDIR)$(xtftestdir)/$(NAME)
 	$(INSTALL_DATA) info.json $(DESTDIR)$(xtftestdir)/$(NAME)
+endif
 
 # Build a test for specified environment
 define PERENV_build
