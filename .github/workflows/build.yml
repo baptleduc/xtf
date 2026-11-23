@@ -2,6 +2,8 @@ name: build
 
 on: [push, pull_request]
 
+permissions: {}
+
 jobs:
   python:
     name: "Python Tests"
@@ -10,16 +12,18 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      with:
+        persist-credentials: false
 
     - name: pre-commit checks - setup cache
-      uses: actions/cache@v4
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
         path: ~/.cache/pre-commit
         key: pre-commit|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
 
     - name: pre-commit checks - run checks
-      uses: pre-commit/action@v3.0.1
+      uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
 
   C:
     name: "C Builds"
@@ -61,7 +65,9 @@ jobs:
         sudo apt-get update -q
         sudo apt-get install -y build-essential python3 ${{matrix.compiler}} ${EXTRA}
 
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      with:
+        persist-credentials: false
 
     - name: Build
       run: |
