@@ -16,3 +16,9 @@ OUTPUT_ARCH(riscv)
 ENTRY(_elf_start)
 
 #endif /* LINKER_HEADER */
+
+#ifdef LINKER_FOOTER
+
+__image_size = _end - _start;
+
+#endif /* LINKER_FOOTER */
